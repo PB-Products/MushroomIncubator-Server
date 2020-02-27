@@ -2,6 +2,7 @@ const keys = require('./keys');
 var mqtt = require('mqtt');
 var con = require('./db');
 var writeData = require('./data_handler');
+var sms = require('./send_sms');
 
 var options = keys.options;
 const client = mqtt.connect('mqtt://soldier.cloudmqtt.com', options);
@@ -37,7 +38,7 @@ client.on('message', (topic, message) => {
 
             try {
                 writeData(map);
-                //sms.validateSms(map);
+                sms.validateSms(map);
             } catch (err) {
                 console.log(err);
             }
